@@ -17,7 +17,8 @@ Imports:
     rvest,
     stringr,
     tibble,
-    glue
+    glue,
+    dplyr
 Suggests: 
     testthat,
     covr
