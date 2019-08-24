@@ -8,7 +8,7 @@ adicionar_paginacao(url)
 }
 \arguments{
 \item{url}{url da primeira pagina da busca gerada por
-\link{\code{formar_url}}}
+\code{\link{formar_url}}}
 }
 \value{
 um vetor de strings com urls de cada pagina da busca

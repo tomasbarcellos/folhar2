@@ -16,11 +16,14 @@ folha_buscar(termo, inicio = NULL, fim = NULL, media_espera = 1)
 \item{media_espera}{media do tempo de espera entre requisicoes}
 }
 \value{
-uma \link{\code{tibble}} com informacoes dos resultados da busca
+uma \code{\link{tibble}} com informacoes dos resultados da busca
 }
 \description{
 Buscar na folha
 }
 \examples{
-folha_buscar("recessao")
+\dontrun{
+folha_buscar("recessao", "01/01/2008", "01/07/2008")
+}
+
 }

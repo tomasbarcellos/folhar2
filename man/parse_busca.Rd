@@ -10,7 +10,7 @@ parse_busca(link)
 \item{link}{url de uma pagina da busca}
 }
 \value{
-uma \link{\code{tibble}} com informacoes dos resultados da busca
+uma \code{\link{tibble}} com informacoes dos resultados da busca
 }
 \description{
 Faz parse da busca

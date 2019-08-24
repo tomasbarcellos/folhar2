@@ -19,6 +19,3 @@ uma string com url da busca
 \description{
 Formar url com termo e periodo da busca
 }
-\examples{
-formar_url("recessao")
-}

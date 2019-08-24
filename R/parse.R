@@ -5,11 +5,14 @@
 #' @param fim fim do periodo da busca
 #' @param media_espera media do tempo de espera entre requisicoes
 #'
-#' @return uma \link{\code{tibble}} com informacoes dos resultados da busca
+#' @return uma \code{\link{tibble}} com informacoes dos resultados da busca
 #' @export
 #'
 #' @examples
-#' folha_buscar("recessao")
+#' \dontrun{
+#' folha_buscar("recessao", "01/01/2008", "01/07/2008")
+#' }
+#'
 folha_buscar <- function(termo, inicio = NULL, fim = NULL, media_espera = 1) {
   formar_url(termo, inicio = inicio, fim = fim) %>%
     adicionar_paginacao() %>%
@@ -22,7 +25,7 @@ folha_buscar <- function(termo, inicio = NULL, fim = NULL, media_espera = 1) {
 #'
 #' @param link url de uma pagina da busca
 #'
-#' @return uma \link{\code{tibble}} com informacoes dos resultados da busca
+#' @return uma \code{\link{tibble}} com informacoes dos resultados da busca
 #'
 parse_busca <- function(link) {
   html <- xml2::read_html(link)
@@ -47,8 +50,8 @@ parse_busca <- function(link) {
     stringr::str_squish()
 
   links <- html %>%
-    html_nodes("div.c-headline__content > a") %>%
-    html_attr("href")
+    rvest::html_nodes("div.c-headline__content > a") %>%
+    rvest::html_attr("href")
 
   tibble::tibble(
     secao = secoes, manchete = manchetes,
@@ -65,11 +68,11 @@ parse_busca <- function(link) {
 #' aletorio com media \code{mean}
 #'
 #' @examples
-#' media_gentil <- gentilmente(mean)
+#' media_gentil <- folhar2:::gentilmente(mean)
 #' system.time(media_gentil(1:9))
 gentilmente <- function(.f, mean = 1) {
   function(...) {
-    Sys.sleep(abs(rnorm(1, mean = mean)))
+    Sys.sleep(abs(stats::rnorm(1, mean = mean)))
     .f(...)
   }
 }
@@ -82,8 +85,6 @@ gentilmente <- function(.f, mean = 1) {
 #'
 #' @return uma string com url da busca
 #'
-#' @examples
-#' formar_url("recessao")
 formar_url <- function(termo, inicio, fim) {
   if (is.null(inicio)) {
     inicio <- "01/01/1900"
@@ -108,7 +109,7 @@ formar_url <- function(termo, inicio, fim) {
 #' Adiciona paginacao a uma url
 #'
 #' @param url url da primeira pagina da busca gerada por
-#' \link{\code{formar_url}}
+#' \code{\link{formar_url}}
 #'
 #' @return um vetor de strings com urls de cada pagina da busca
 #'
@@ -129,9 +130,6 @@ adicionar_paginacao <- function(url) {
   glue::glue("{url}&results_count={n_resultados}&sr={paginas}")
 }
 
-#' Pipe
-#'
 #' @importFrom magrittr %>%
-#' @rdname pipe
 #' @export
-NULL
+magrittr::`%>%`

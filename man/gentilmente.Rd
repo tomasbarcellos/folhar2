@@ -19,6 +19,6 @@ aletorio com media \code{mean}
 Roda gentilmente
 }
 \examples{
-media_gentil <- gentilmente(mean)
+media_gentil <- folhar2:::gentilmente(mean)
 system.time(media_gentil(1:9))
 }
