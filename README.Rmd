@@ -1,0 +1,71 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+ [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+ 
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+library(ggplot2)
+library(dplyr)
+```
+# folhar2
+
+O objetivo de folhar2 eh fazer raspar dados da Folha.
+
+## Installation
+
+Para instalar do github, rode
+
+``` r
+remotes::install_github("tomasbarcellos/folhar2")
+```
+
+## Exemplo
+
+This is a basic example which shows you how to solve a common problem:
+
+```{r example}
+library(folhar2)
+
+inicio_mes <- Sys.Date() %>% 
+  lubridate::floor_date("month") %>% 
+  format(format = "%d/%m/%Y") 
+
+busca <- folha_buscar("recessao", inicio_mes)
+busca
+```
+
+Quais as sesoes da folha que mais publicaram sobre recessao?
+
+```{r}
+table(busca$secao)
+```
+
+Evolucao do uso do termo no mes
+
+```{r}
+library(ggplot2)
+library(dplyr)
+
+busca %>% 
+  select(hora) %>% 
+  mutate(hora = stringr::str_remove(hora, "º"),
+         data = stringr::str_extract(hora, "\\d{1,2}\\.[a-z]{3}\\.\\d{4}"),
+         data = as.Date(data, format = "%d.%b.%Y")) %>% 
+  count(data) %>% 
+  ggplot(aes(data, n)) +
+  geom_line() +
+  scale_y_continuous("Quantidade", limits = c(0, NA)) + 
+  ggtitle("Mencoes ao termo 'recessao' ao longo do mes")
+```
+
+
+
