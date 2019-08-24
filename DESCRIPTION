@@ -18,3 +18,5 @@ Imports:
     stringr,
     tibble,
     glue
+Suggests: 
+    testthat
