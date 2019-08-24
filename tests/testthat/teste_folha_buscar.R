@@ -1,9 +1,8 @@
 context("folha_buscar")
 
-
 inicio_mes <- Sys.Date() %>%
-  lubridate::floor_date("month") %>%
-  format(format = "%d/%m/%Y")
+  format(format = "%d/%m/%Y") %>%
+  stringr::str_replace("^\\d{1,2}", "01")
 
 test_that("Busca ocorre sem problemas", {
   expect_silent(busca <- folha_buscar("recessao", inicio_mes))
