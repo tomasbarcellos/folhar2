@@ -18,7 +18,8 @@ Imports:
     stringr,
     tibble,
     glue,
-    dplyr
+    dplyr,
+    jsonlite
 Suggests: 
     testthat,
     covr

@@ -2,4 +2,5 @@
 
 export("%>%")
 export(folha_buscar)
+export(listar_textos)
 importFrom(magrittr,"%>%")

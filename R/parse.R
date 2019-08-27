@@ -130,6 +130,27 @@ adicionar_paginacao <- function(url) {
   glue::glue("{url}&results_count={n_resultados}&sr={paginas}")
 }
 
+#' Lista textos de uma colunista
+#'
+#' @param colunista Nome da colunista
+#'
+#' @return uma \code{\link{tibble}} com dados dos textos da colunista
+#' @export
+#'
+#' @examples
+#' listar_textos("Denise Fraga")
+listar_textos <- function(colunista) {
+  colunista <- colunista %>%
+    stringr::str_to_lower() %>%
+    stringr::str_remove_all(" ")
+
+  glue::glue("https://www1.folha.uol.com.br/virtual/hunting/",
+             "columns/{colunista}/newslist.json") %>%
+    jsonlite::fromJSON() %>%
+    tibble::as_tibble()
+}
+
+
 #' @importFrom magrittr %>%
 #' @export
 magrittr::`%>%`
