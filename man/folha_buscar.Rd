@@ -4,7 +4,8 @@
 \alias{folha_buscar}
 \title{Buscar na folha}
 \usage{
-folha_buscar(termo, inicio = NULL, fim = NULL, media_espera = 1)
+folha_buscar(termo, inicio = NULL, fim = NULL, tipo = NULL,
+  media_espera = 1)
 }
 \arguments{
 \item{termo}{termo buscado}
@@ -12,6 +13,8 @@ folha_buscar(termo, inicio = NULL, fim = NULL, media_espera = 1)
 \item{inicio}{inicio do periodo da busca}
 
 \item{fim}{fim do periodo da busca}
+
+\item{tipo}{tipo da busca}
 
 \item{media_espera}{media do tempo de espera entre requisicoes}
 }

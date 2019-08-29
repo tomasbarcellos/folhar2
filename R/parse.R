@@ -4,6 +4,7 @@
 #' @param inicio inicio do periodo da busca
 #' @param fim fim do periodo da busca
 #' @param media_espera media do tempo de espera entre requisicoes
+#' @param tipo tipo da busca
 #'
 #' @return uma \code{\link{tibble}} com informacoes dos resultados da busca
 #' @export
@@ -13,8 +14,9 @@
 #' folha_buscar("recessao", "01/01/2008", "01/07/2008")
 #' }
 #'
-folha_buscar <- function(termo, inicio = NULL, fim = NULL, media_espera = 1) {
-  formar_url(termo, inicio = inicio, fim = fim) %>%
+folha_buscar <- function(termo, inicio = NULL, fim = NULL, tipo = NULL,
+                         media_espera = 1) {
+  formar_url(termo, inicio = inicio, fim = fim, tipo = tipo) %>%
     adicionar_paginacao() %>%
     purrr::map_df(
       purrr::possibly(gentilmente(parse_busca, media_espera), Sys.sleep(3))
@@ -82,10 +84,11 @@ gentilmente <- function(.f, mean = 1) {
 #' @param termo termo buscado
 #' @param inicio inicio do periodo da busca
 #' @param fim fim do periodo da busca
+#' @param tipo tipo da busca
 #'
 #' @return uma string com url da busca
 #'
-formar_url <- function(termo, inicio, fim) {
+formar_url <- function(termo, inicio, fim, tipo) {
   if (is.null(inicio)) {
     inicio <- "01/01/1900"
   }
@@ -93,6 +96,10 @@ formar_url <- function(termo, inicio, fim) {
   if (is.null(fim)) {
     fim <- format(Sys.Date(), format = "%d/%m/%Y")
   }
+
+  tipo <- match.arg(tipo, c("jornal", "todos", "sitefolha", "folha_blogs",
+                            "agora", "datafolha", "online%2Flivrariadafolha",
+                            "infographics"))
 
   inicio <- stringr::str_replace_all(inicio, "/", "%2F")
   fim <- stringr::str_replace_all(fim, "/", "%2F")
@@ -102,7 +109,7 @@ formar_url <- function(termo, inicio, fim) {
   glue::glue(
     "https://search.folha.uol.com.br/?q={termo}",
     "&periodo=personalizado&sd={inicio}&ed={fim}",
-    "&site=jornal"
+    "&site={tipo}"
   )
 }
 

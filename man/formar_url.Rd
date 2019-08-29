@@ -4,7 +4,7 @@
 \alias{formar_url}
 \title{Formar url com termo e periodo da busca}
 \usage{
-formar_url(termo, inicio, fim)
+formar_url(termo, inicio, fim, tipo)
 }
 \arguments{
 \item{termo}{termo buscado}
@@ -12,6 +12,8 @@ formar_url(termo, inicio, fim)
 \item{inicio}{inicio do periodo da busca}
 
 \item{fim}{fim do periodo da busca}
+
+\item{tipo}{tipo da busca}
 }
 \value{
 uma string com url da busca
